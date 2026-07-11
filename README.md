@@ -41,12 +41,21 @@ npm run preview
 
 ## GitHub Pages Deployment
 
-The repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml`. To deploy:
+This project now supports two GitHub Pages paths. The recommended path is **GitHub Actions**, because it always publishes the built `dist/` folder after every push to `main`.
 
-1. Push this branch to GitHub.
-2. In the repository settings, enable **Pages** and choose **GitHub Actions** as the source.
-3. Run the workflow manually or push to `main`, `master`, or `work`.
-4. GitHub Pages will publish the generated `dist/` folder.
+### Recommended: deploy with GitHub Actions
+
+1. Merge or push the app to the repository's `main` branch.
+2. Open the repository on GitHub and go to **Settings → Pages**.
+3. Under **Build and deployment → Source**, choose **GitHub Actions**.
+4. Push to `main` or run the **Deploy to GitHub Pages** workflow manually from the **Actions** tab.
+5. After the workflow succeeds, open the Pages URL shown in **Settings → Pages** or in the workflow summary.
+
+The workflow at `.github/workflows/deploy.yml` checks out the main branch, configures Pages, runs `npm run build`, uploads `dist/`, and deploys it. The generated artifact includes `index.html`, `src/`, `.nojekyll`, and `404.html`.
+
+### Alternative: deploy directly from the main branch
+
+Because the app is static and has an `index.html` at the repository root, you can also use **Settings → Pages → Deploy from a branch**, then select `main` and `/ (root)`. If you choose this mode, GitHub serves the source files directly instead of the `dist/` build output.
 
 The site uses relative asset paths, so it can be deployed at either a user site root or a project page path.
 
